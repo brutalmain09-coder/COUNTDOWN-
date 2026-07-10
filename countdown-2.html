@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Countdown to August 17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-red: #3d0a0c;
+    --red: #a3161b;
+    --bright-red: #d81920;
+    --gold: #ffb627;
+    --floodlight: #f5f7fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; background: var(--deep-red); }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--floodlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Deep red backdrop */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(216,25,32,0.5), transparent 60%),
+      linear-gradient(180deg, #24080a 0%, #3d0a0c 45%, #200608 100%);
+  }
+
+  /* Large jersey silhouette centered behind content, pure CSS/SVG - no player, no name */
+  .jersey-wrap {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 92vw;
+    max-width: 520px;
+    opacity: 0.9;
+    z-index: 1;
+  }
+  .jersey-wrap svg { width: 100%; height: auto; }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(10,2,3,0.75) 100%);
+    z-index: 2;
+  }
+
+  .container {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 28px 20px;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .kicker {
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .headline {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: 2.6rem;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: var(--floodlight);
+    text-shadow: 0 0 24px rgba(255,255,255,0.25);
+    margin-bottom: 30px;
+  }
+  .headline span { color: var(--gold); }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .cell {
+    background: linear-gradient(180deg, rgba(20,5,6,0.8), rgba(10,2,3,0.8));
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,182,39,0.3);
+    border-radius: 10px;
+    padding: 14px 4px 10px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.03),
+      0 4px 14px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  .cell::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent);
+  }
+
+  .num {
+    font-family: 'Teko', sans-serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--gold);
+    text-shadow: 0 0 14px rgba(255,182,39,0.55);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lbl {
+    margin-top: 4px;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,247,250,0.55);
+    font-weight: 500;
+  }
+
+  .ms-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(245,247,250,0.6);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+  .ms-num {
+    font-family: 'Teko', sans-serif;
+    font-size: 1.3rem;
+    color: rgba(255,182,39,0.85);
+    font-variant-numeric: tabular-nums;
+    min-width: 2.4ch;
+    display: inline-block;
+  }
+
+  .whistle-line {
+    margin-top: 26px;
+    height: 2px;
+    width: 60px;
+    background: var(--gold);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .full-time {
+    font-family: 'Teko', sans-serif;
+    font-size: 3rem;
+    color: #4ade80;
+    text-shadow: 0 0 30px rgba(74,222,128,0.5);
+  }
+
+  @media (max-width: 380px) {
+    .num { font-size: 2.1rem; }
+    .headline { font-size: 2.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="backdrop"></div>
+
+<div class="jersey-wrap">
+  <svg viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="jerseyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#c41217"/>
+        <stop offset="55%" stop-color="#8f0f13"/>
+        <stop offset="100%" stop-color="#5c0a0d"/>
+      </linearGradient>
+      <linearGradient id="sleeveShade" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7a0c0f"/>
+        <stop offset="100%" stop-color="#a3161b"/>
+      </linearGradient>
+    </defs>
+
+    <!-- left sleeve -->
+    <path d="M75 55 L15 90 Q5 96 10 108 L35 155 Q42 165 52 158 L90 130 Z" fill="url(#sleeveShade)" stroke="#3d0a0c" stroke-width="2"/>
+    <!-- right sleeve -->
+    <path d="M225 55 L285 90 Q295 96 290 108 L265 155 Q258 165 248 158 L210 130 Z" fill="url(#sleeveShade)" stroke="#3d0a0c" stroke-width="2"/>
+
+    <!-- main body -->
+    <path d="M100 40 Q150 15 200 40 L215 60 L210 300 Q150 312 90 300 L85 60 Z" fill="url(#jerseyGrad)" stroke="#3d0a0c" stroke-width="2"/>
+
+    <!-- collar -->
+    <path d="M118 38 Q150 62 182 38 Q170 30 150 30 Q130 30 118 38 Z" fill="#f5f7fa"/>
+
+    <!-- sleeve cuffs -->
+    <rect x="20" y="140" width="30" height="16" rx="4" fill="#f5f7fa" transform="rotate(-24 35 148)"/>
+    <rect x="250" y="140" width="30" height="16" rx="4" fill="#f5f7fa" transform="rotate(24 265 148)"/>
+
+    <!-- number 7 -->
+    <text x="150" y="215" font-family="Teko, sans-serif" font-size="150" font-weight="700"
+          text-anchor="middle" fill="#f5f7fa" opacity="0.95">9</text>
+  </svg>
+</div>
+
+<div class="vignette"></div>
+
+<div class="container">
+  <div class="kicker">Match Day Countdown</div>
+  <div class="headline">Kickoff <span>17 Aug</span></div>
+
+  <div id="board" class="board">
+    <div class="cell"><div class="num" id="days">--</div><div class="lbl">Days</div></div>
+    <div class="cell"><div class="num" id="hours">--</div><div class="lbl">Hours</div></div>
+    <div class="cell"><div class="num" id="minutes">--</div><div class="lbl">Mins</div></div>
+    <div class="cell"><div class="num" id="seconds">--</div><div class="lbl">Secs</div></div>
+  </div>
+
+  <div class="ms-row">
+    <span>MS</span><span class="ms-num" id="millis">---</span>
+  </div>
+
+  <div class="whistle-line"></div>
+</div>
+
+<script>
+  const target = new Date(2026, 7, 17, 0, 0, 0, 0);
+
+  function update() {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('board').innerHTML =
+        '<div class="cell" style="grid-column: span 4;"><div class="full-time">Kickoff! ⚽</div></div>';
+      document.querySelector('.ms-row').style.display = 'none';
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    diff -= days * 86400000;
+    const hours = Math.floor(diff / 3600000);
+    diff -= hours * 3600000;
+    const minutes = Math.floor(diff / 60000);
+    diff -= minutes * 60000;
+    const seconds = Math.floor(diff / 1000);
+    diff -= seconds * 1000;
+    const millis = Math.floor(diff);
+
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    document.getElementById('millis').textContent = String(millis).padStart(3, '0');
+
+    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
+</script>
+</body>
+</html>
